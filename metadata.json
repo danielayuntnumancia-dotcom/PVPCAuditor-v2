@@ -1,0 +1,6 @@
+{
+  "name": "PVPC Auditor Inteligente",
+  "description": "Auditor de factura eléctrica PVPC 2.0TD en España con escaneo de facturas por IA, simulador de ahorro y asesor energético integrado con Google Search Grounding.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
