@@ -201,7 +201,7 @@ export default function App() {
                 <p className="font-bold text-xs text-slate-800 dark:text-slate-200 font-sans">
                   {prof.name}
                 </p>
-                <p className="text-3xs text-slate-400 dark:text-slate-500 line-clamp-2 leading-relaxed">
+                <p className="text-3xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
                   {prof.description}
                 </p>
               </button>
@@ -267,7 +267,7 @@ export default function App() {
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
                       <Calendar size={11} /> F. Inicio
                     </label>
                     <input
@@ -278,7 +278,7 @@ export default function App() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
                       <Calendar size={11} /> F. Fin
                     </label>
                     <input
@@ -292,7 +292,7 @@ export default function App() {
                 
                 <div className="grid grid-cols-2 gap-4 items-center">
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
                       <DollarSign size={11} /> Presupuesto Máx (€)
                     </label>
                     <input
@@ -327,7 +327,7 @@ export default function App() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400">Punta (kW)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400">Punta (kW)</label>
                     <input
                       type="number"
                       step="0.1"
@@ -337,7 +337,7 @@ export default function App() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400">Valle (kW)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400">Valle (kW)</label>
                     <input
                       type="number"
                       step="0.1"
@@ -350,10 +350,10 @@ export default function App() {
 
                 {showAdvancedPotencia && (
                   <div className="bg-slate-100/40 dark:bg-slate-950/60 p-4 rounded-xl space-y-3 border border-slate-200/50 dark:border-slate-850/80 animate-fadeIn text-xs">
-                    <p className="font-bold text-3xs text-slate-400 uppercase tracking-widest">Precios de Potencia (€/kW/año)</p>
+                    <p className="font-bold text-3xs text-slate-500 dark:text-slate-400 uppercase tracking-widest">Precios de Potencia (€/kW/año)</p>
                     <div className="grid grid-cols-3 gap-3">
                       <div>
-                        <label className="text-3xs text-slate-400 block mb-1">Peaje Punta</label>
+                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Punta</label>
                         <input
                           type="number"
                           step="0.0001"
@@ -363,7 +363,7 @@ export default function App() {
                         />
                       </div>
                       <div>
-                        <label className="text-3xs text-slate-400 block mb-1">Peaje Valle</label>
+                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Valle</label>
                         <input
                           type="number"
                           step="0.0001"
@@ -373,7 +373,7 @@ export default function App() {
                         />
                       </div>
                       <div>
-                        <label className="text-3xs text-slate-400 block mb-1">Margen</label>
+                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Margen</label>
                         <input
                           type="number"
                           step="0.0001"
@@ -404,7 +404,7 @@ export default function App() {
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400 block">Punta (kWh)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block">Punta (kWh)</label>
                     <input
                       type="number"
                       value={billData.kwhPunta}
@@ -413,7 +413,7 @@ export default function App() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400 block">Llano (kWh)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block">Llano (kWh)</label>
                     <input
                       type="number"
                       value={billData.kwhLlano}
@@ -422,7 +422,7 @@ export default function App() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400 block">Valle (kWh)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block">Valle (kWh)</label>
                     <input
                       type="number"
                       value={billData.kwhValle}
@@ -432,9 +432,86 @@ export default function App() {
                   </div>
                 </div>
 
+                {/* Porcentajes de Consumo por Tramo */}
+                {(() => {
+                  const totalKwh = billData.kwhPunta + billData.kwhLlano + billData.kwhValle;
+                  const pctPunta = totalKwh > 0 ? (billData.kwhPunta / totalKwh) * 100 : 0;
+                  const pctLlano = totalKwh > 0 ? (billData.kwhLlano / totalKwh) * 100 : 0;
+                  const pctValle = totalKwh > 0 ? (billData.kwhValle / totalKwh) * 100 : 0;
+
+                  return (
+                    <div className="bg-slate-50 dark:bg-slate-900/40 border border-slate-200/50 dark:border-slate-800/60 rounded-xl p-3.5 space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span className="text-2xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
+                          Distribución de Energía Consumida
+                        </span>
+                        <span className="font-mono text-2xs font-bold text-slate-700 dark:text-slate-200">
+                          Total: {totalKwh.toFixed(1)} kWh
+                        </span>
+                      </div>
+
+                      {/* Stacked Progress Bar */}
+                      <div className="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden flex shadow-inner">
+                        {pctPunta > 0 && (
+                          <div
+                            className="bg-rose-500 h-full transition-all duration-500"
+                            style={{ width: `${pctPunta}%` }}
+                            title={`Punta: ${pctPunta.toFixed(1)}%`}
+                          />
+                        )}
+                        {pctLlano > 0 && (
+                          <div
+                            className="bg-amber-500 h-full transition-all duration-500"
+                            style={{ width: `${pctLlano}%` }}
+                            title={`Llano: ${pctLlano.toFixed(1)}%`}
+                          />
+                        )}
+                        {pctValle > 0 && (
+                          <div
+                            className="bg-emerald-500 h-full transition-all duration-500"
+                            style={{ width: `${pctValle}%` }}
+                            title={`Valle: ${pctValle.toFixed(1)}%`}
+                          />
+                        )}
+                      </div>
+
+                      {/* Labels and individual percentages */}
+                      <div className="grid grid-cols-3 gap-2 text-3xs font-medium pt-0.5">
+                        <div className="flex flex-col items-start gap-1">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
+                            <span className="text-slate-600 dark:text-slate-300 font-bold">Punta (P1)</span>
+                          </div>
+                          <span className="font-mono text-slate-800 dark:text-slate-200 font-bold pl-3.5">
+                            {pctPunta.toFixed(1)}% <span className="font-normal text-slate-500 text-[9px]">({billData.kwhPunta.toFixed(1)} kWh)</span>
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-start gap-1">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+                            <span className="text-slate-600 dark:text-slate-300 font-bold">Llano (P2)</span>
+                          </div>
+                          <span className="font-mono text-slate-800 dark:text-slate-200 font-bold pl-3.5">
+                            {pctLlano.toFixed(1)}% <span className="font-normal text-slate-500 text-[9px]">({billData.kwhLlano.toFixed(1)} kWh)</span>
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-start gap-1">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                            <span className="text-slate-600 dark:text-slate-300 font-bold">Valle (P3)</span>
+                          </div>
+                          <span className="font-mono text-slate-800 dark:text-slate-200 font-bold pl-3.5">
+                            {pctValle.toFixed(1)}% <span className="font-normal text-slate-500 text-[9px]">({billData.kwhValle.toFixed(1)} kWh)</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+
                 {/* Constant or variable energy index price */}
                 <div className="space-y-1">
-                  <label className="text-2xs font-bold text-slate-400 flex items-center gap-1">
+                  <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1">
                     Coste Energía Variable Diario (€/kWh)
                   </label>
                   <input
@@ -444,15 +521,15 @@ export default function App() {
                     onChange={(e) => handleInputChange("costeEnergiaVariable", parseFloat(e.target.value) || 0)}
                     className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-emerald-500 text-white dark:text-white"
                   />
-                  <p className="text-3xs text-slate-400 dark:text-slate-500">Promedio diario del mercado mayorista OMIE en España.</p>
+                  <p className="text-3xs text-slate-500 dark:text-slate-400">Promedio diario del mercado mayorista OMIE en España.</p>
                 </div>
 
                 {showAdvancedConsumo && (
                   <div className="bg-slate-100/40 dark:bg-slate-950/60 p-4 rounded-xl space-y-3 border border-slate-200/50 dark:border-slate-850/80 animate-fadeIn text-xs">
-                    <p className="font-bold text-3xs text-slate-400 uppercase tracking-widest">Peajes de Acceso Energía (€/kWh)</p>
+                    <p className="font-bold text-3xs text-slate-500 dark:text-slate-400 uppercase tracking-widest">Peajes de Acceso Energía (€/kWh)</p>
                     <div className="grid grid-cols-3 gap-3">
                       <div>
-                        <label className="text-3xs text-slate-400 block mb-1">Peaje Punta</label>
+                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Punta</label>
                         <input
                           type="number"
                           step="0.000001"
@@ -462,7 +539,7 @@ export default function App() {
                         />
                       </div>
                       <div>
-                        <label className="text-3xs text-slate-400 block mb-1">Peaje Llano</label>
+                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Llano</label>
                         <input
                           type="number"
                           step="0.000001"
@@ -472,7 +549,7 @@ export default function App() {
                         />
                       </div>
                       <div>
-                        <label className="text-3xs text-slate-400 block mb-1">Peaje Valle</label>
+                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Valle</label>
                         <input
                           type="number"
                           step="0.000001"
@@ -493,7 +570,7 @@ export default function App() {
                 </h3>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="text-2xs font-bold text-slate-400 block mb-1">Contador (€/día)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block mb-1">Contador (€/día)</label>
                     <input
                       type="number"
                       step="0.00001"
@@ -503,7 +580,7 @@ export default function App() {
                     />
                   </div>
                   <div>
-                    <label className="text-2xs font-bold text-slate-400 block mb-1">Bono Social (€)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block mb-1">Bono Social (€)</label>
                     <input
                       type="number"
                       step="0.01"
@@ -513,7 +590,7 @@ export default function App() {
                     />
                   </div>
                   <div>
-                    <label className="text-2xs font-bold text-slate-400 block mb-1">Cuota Internet (€)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block mb-1">Cuota Internet (€)</label>
                     <input
                       type="number"
                       step="0.1"
@@ -532,7 +609,7 @@ export default function App() {
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400 block">Impuesto Eléctrico (IEE %)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block">Impuesto Eléctrico (IEE %)</label>
                     <input
                       type="number"
                       step="0.000001"
@@ -542,7 +619,7 @@ export default function App() {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-400 block">IVA (%)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block">IVA (%)</label>
                     <select
                       value={billData.iva}
                       onChange={(e) => handleInputChange("iva", parseInt(e.target.value) || 21)}
@@ -742,7 +819,7 @@ export default function App() {
                   className={`flex-1 py-4 text-center font-bold text-sm transition-all border-b-2 flex items-center justify-center gap-2 ${
                     activeTab === "advisor"
                       ? "border-emerald-500 text-emerald-500 dark:border-emerald-400 dark:text-emerald-400 bg-emerald-500/5"
-                      : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                      : "border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                   }`}
                 >
                   <Bot size={16} /> Asesor IA Luz inteligente
@@ -752,7 +829,7 @@ export default function App() {
                   className={`flex-1 py-4 text-center font-bold text-sm transition-all border-b-2 flex items-center justify-center gap-2 ${
                     activeTab === "sandbox"
                       ? "border-emerald-500 text-emerald-500 dark:border-emerald-400 dark:text-emerald-400 bg-emerald-500/5"
-                      : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                      : "border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                   }`}
                 >
                   <Sliders size={16} /> Simulador y Sandbox de Ahorro

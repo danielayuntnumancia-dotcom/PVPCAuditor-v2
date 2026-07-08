@@ -40,7 +40,7 @@ export default function BillOptimizer({ data, results, onApplyOptimization }: Bi
               Potencial de Ahorro Anual
             </h3>
             <p className="text-2xl font-black text-emerald-500 dark:text-emerald-400 font-display mt-1">
-              {totalAnnualSavings.toFixed(2)} € <span className="text-xs font-normal text-slate-400 dark:text-slate-500">/ año</span>
+              {totalAnnualSavings.toFixed(2)} € <span className="text-xs font-normal text-slate-500 dark:text-slate-400">/ año</span>
             </p>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-sans">
               Equivale a {totalActiveSavings.toFixed(2)} € de ahorro en esta factura actual de {results.dias} días.
@@ -95,7 +95,7 @@ export default function BillOptimizer({ data, results, onApplyOptimization }: Bi
             onChange={(e) => setShiftPercentage(Number(e.target.value))}
             className="w-full h-2 bg-slate-100 dark:bg-slate-850 rounded-lg appearance-none cursor-pointer accent-emerald-500"
           />
-          <div className="flex justify-between text-3xs text-slate-400 font-mono uppercase tracking-wider">
+          <div className="flex justify-between text-3xs text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider">
             <span>0% (Sin cambios)</span>
             <span>25% (Hogar activo)</span>
             <span>50% (Muy eficiente)</span>
@@ -157,7 +157,7 @@ export default function BillOptimizer({ data, results, onApplyOptimization }: Bi
             onChange={(e) => setTargetKwPunta(Number(e.target.value))}
             className="w-full h-2 bg-slate-100 dark:bg-slate-850 rounded-lg appearance-none cursor-pointer accent-indigo-500"
           />
-          <div className="flex justify-between text-3xs text-slate-400 font-mono uppercase tracking-wider">
+          <div className="flex justify-between text-3xs text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider">
             <span>1.5 kW (Mínimo)</span>
             <span>{data.kwPunta} kW (Actual)</span>
           </div>

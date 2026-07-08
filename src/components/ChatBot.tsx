@@ -137,13 +137,13 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
         </div>
 
         {/* Modes selectors */}
-        <div className="flex bg-slate-200/50 dark:bg-slate-850/80 p-1 rounded-xl gap-1 shrink-0">
+        <div className="flex bg-slate-200/60 dark:bg-slate-800/80 p-1 rounded-xl gap-1 shrink-0 border border-slate-300/30 dark:border-slate-700/50">
           <button
             onClick={() => setMode("normal")}
             className={`px-2.5 py-1 text-2xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
               mode === "normal"
-                ? "bg-white dark:bg-slate-700 text-emerald-500 dark:text-emerald-300 shadow-2xs"
-                : "text-slate-500 hover:text-slate-700 dark:text-slate-400"
+                ? "bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-300 shadow-2xs"
+                : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             }`}
             title="Modelo estándar equilibrado"
           >
@@ -154,8 +154,8 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
             onClick={() => setMode("fast")}
             className={`px-2.5 py-1 text-2xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
               mode === "fast"
-                ? "bg-white dark:bg-slate-700 text-emerald-500 dark:text-emerald-300 shadow-2xs"
-                : "text-slate-500 hover:text-slate-700 dark:text-slate-400"
+                ? "bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-300 shadow-2xs"
+                : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             }`}
             title="Respuestas veloces y directas"
           >
@@ -166,8 +166,8 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
             onClick={() => setMode("thinking")}
             className={`px-2.5 py-1 text-2xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
               mode === "thinking"
-                ? "bg-white dark:bg-slate-700 text-emerald-500 dark:text-emerald-300 shadow-2xs"
-                : "text-slate-500 hover:text-slate-700 dark:text-slate-400"
+                ? "bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-300 shadow-2xs"
+                : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             }`}
             title="Razonamiento lógico de alta intensidad"
           >
@@ -178,8 +178,8 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
             onClick={() => setMode("grounded")}
             className={`px-2.5 py-1 text-2xs font-bold rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
               mode === "grounded"
-                ? "bg-white dark:bg-slate-700 text-emerald-500 dark:text-emerald-300 shadow-2xs"
-                : "text-slate-500 hover:text-slate-700 dark:text-slate-400"
+                ? "bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-300 shadow-2xs"
+                : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             }`}
             title="Conectado a Google Search"
           >
@@ -222,7 +222,7 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
                 {/* Citations section if grounded mode returned URLs */}
                 {msg.citations && msg.citations.length > 0 && (
                   <div className="mt-3.5 pt-2.5 border-t border-slate-200 dark:border-slate-800 space-y-1 text-2xs">
-                    <p className="font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1 uppercase tracking-wider text-3xs">
+                    <p className="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-1 uppercase tracking-wider text-3xs">
                       <Globe size={10} /> Fuentes consultadas via Google Search:
                     </p>
                     <div className="flex flex-wrap gap-1.5 mt-1">
@@ -242,7 +242,7 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
                   </div>
                 )}
               </div>
-              <p className={`text-3xs text-slate-400 px-1 font-sans ${msg.role === "user" ? "text-right" : ""}`}>
+              <p className={`text-3xs text-slate-500 dark:text-slate-400 px-1 font-sans ${msg.role === "user" ? "text-right" : ""}`}>
                 {msg.timestamp}
               </p>
             </div>
@@ -260,7 +260,7 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
                 <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce" />
                 <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.2s]" />
                 <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.4s]" />
-                <span className="text-3xs font-bold text-slate-500 uppercase tracking-widest pl-1 font-sans">
+                <span className="text-3xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-widest pl-1 font-sans">
                   {mode === "thinking"
                     ? "Razonando..."
                     : mode === "grounded"

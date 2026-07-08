@@ -241,7 +241,7 @@ export default function Scanner({ onScanSuccess }: ScannerProps) {
             <p className="font-bold text-sm text-slate-700 dark:text-slate-200 font-sans">
               Arrastra tu factura aquí o <span className="text-emerald-500 dark:text-emerald-400 underline font-extrabold">búscala</span>
             </p>
-            <p className="text-3xs text-slate-400 uppercase tracking-wider font-semibold">
+            <p className="text-3xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
               Admite fotos, capturas de pantalla o PDF de tu última factura
             </p>
           </div>
@@ -251,7 +251,7 @@ export default function Scanner({ onScanSuccess }: ScannerProps) {
       {/* Instant Action Options */}
       {!file && !loading && (
         <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-900/20 p-3 rounded-xl border border-slate-150 dark:border-slate-800/60">
-          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400">
             <Sparkles size={14} className="text-emerald-500 shrink-0" />
             <span className="font-sans">¿No tienes una factura a mano?</span>
           </div>
@@ -272,7 +272,7 @@ export default function Scanner({ onScanSuccess }: ScannerProps) {
             <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-sans">
               Procesando factura con Gemini 3.1 Pro...
             </p>
-            <p className="text-3xs uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500">
+            <p className="text-3xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-450">
               {statusText}
             </p>
           </div>
