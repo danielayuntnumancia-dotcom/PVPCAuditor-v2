@@ -67,7 +67,7 @@ Reglas:
     };
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.1-pro-preview", // Required model for image analysis
+      model: "gemini-3.5-flash", // Use gemini-3.5-flash for faster and reliable free-tier multi-modal analysis
       contents: [imagePart, promptPart],
       config: {
         responseMimeType: "application/json",
@@ -138,9 +138,9 @@ CONTEXTO EN TIEMPO REAL - DATOS DE LA AUDITORÍA ACTIVA DEL USUARIO:
   * Punta: ${billData.kwPunta || 0} kW
   * Valle: ${billData.kwValle || 0} kW
 - Consumo introducido:
-  * Punta: ${billData.kwhPunta || 0} kWh
-  * Llano: ${billData.kwhLlano || 0} kWh
-  * Valle: ${billData.kwhValle || 0} kWh
+  * Punta: ${billData.kwhPunta || 0} kWh (Precios: peaje ${billData.precioKwhPunta || 0} €/kWh, energía ${billData.costeEnergiaPunta || billData.costeEnergiaVariable || 0} €/kWh)
+  * Llano: ${billData.kwhLlano || 0} kWh (Precios: peaje ${billData.precioKwhLlano || 0} €/kWh, energía ${billData.costeEnergiaLlano || billData.costeEnergiaVariable || 0} €/kWh)
+  * Valle: ${billData.kwhValle || 0} kWh (Precios: peaje ${billData.precioKwhValle || 0} €/kWh, energía ${billData.costeEnergiaValle || billData.costeEnergiaVariable || 0} €/kWh)
   * Consumo Total: ${billData.kwhTotal || 0} kWh
 - Desglose de costes calculados:
   * Término Fijo (Potencia): ${billData.totalFijo || 0} €
@@ -160,7 +160,7 @@ Usa estos datos activamente en tus respuestas para hacer auditorías a medida. P
     if (mode === "fast") {
       modelName = "gemini-3.1-flash-lite"; // Low-latency
     } else if (mode === "thinking") {
-      modelName = "gemini-3.1-pro-preview"; // High thinking
+      modelName = "gemini-3.5-flash"; // High thinking without free tier quota limitations
       config.thinkingConfig = {
         thinkingLevel: ThinkingLevel.HIGH,
       };

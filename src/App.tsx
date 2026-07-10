@@ -183,31 +183,7 @@ export default function App() {
           </div>
         </header>
 
-        {/* Demo profiles picker */}
-        <div className="bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/50 p-5 rounded-2xl shadow-3xs space-y-4">
-          <div className="flex items-center gap-1.5">
-            <SlidersHorizontal size={16} className="text-emerald-500 dark:text-emerald-400" />
-            <h2 className="font-semibold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest font-sans">
-              Cargar Perfil de Consumo Rápido
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {DEMO_PROFILES.map((prof, index) => (
-              <button
-                key={index}
-                onClick={() => handleApplyProfile(prof.data)}
-                className="text-left p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 bg-slate-50/50 hover:bg-emerald-500/5 dark:bg-slate-950/40 dark:hover:bg-emerald-500/5 hover:border-emerald-500/30 dark:hover:border-emerald-500/30 transition-all space-y-1.5"
-              >
-                <p className="font-bold text-xs text-slate-800 dark:text-slate-200 font-sans">
-                  {prof.name}
-                </p>
-                <p className="text-3xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
-                  {prof.description}
-                </p>
-              </button>
-            ))}
-          </div>
-        </div>
+
 
         {/* Gemini Scanner result report if active */}
         {scanExplanation && (
@@ -397,7 +373,7 @@ export default function App() {
                     onClick={() => setShowAdvancedConsumo(!showAdvancedConsumo)}
                     className="text-3xs text-emerald-500 hover:text-emerald-600 font-bold uppercase tracking-wider flex items-center gap-0.5"
                   >
-                    {showAdvancedConsumo ? "Peajes por defecto" : "Peajes avanzados"}
+                    {showAdvancedConsumo ? "Precios por defecto" : "Precios avanzados"}
                     {showAdvancedConsumo ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
                   </button>
                 </div>
@@ -509,54 +485,78 @@ export default function App() {
                   );
                 })()}
 
-                {/* Constant or variable energy index price */}
-                <div className="space-y-1">
-                  <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                    Coste Energía Variable Diario (€/kWh)
-                  </label>
-                  <input
-                    type="number"
-                    step="0.000001"
-                    value={billData.costeEnergiaVariable}
-                    onChange={(e) => handleInputChange("costeEnergiaVariable", parseFloat(e.target.value) || 0)}
-                    className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-emerald-500 text-white dark:text-white"
-                  />
-                  <p className="text-3xs text-slate-500 dark:text-slate-400">Promedio diario del mercado mayorista OMIE en España.</p>
-                </div>
-
                 {showAdvancedConsumo && (
-                  <div className="bg-slate-100/40 dark:bg-slate-950/60 p-4 rounded-xl space-y-3 border border-slate-200/50 dark:border-slate-850/80 animate-fadeIn text-xs">
-                    <p className="font-bold text-3xs text-slate-500 dark:text-slate-400 uppercase tracking-widest">Peajes de Acceso Energía (€/kWh)</p>
-                    <div className="grid grid-cols-3 gap-3">
-                      <div>
-                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Punta</label>
-                        <input
-                          type="number"
-                          step="0.000001"
-                          value={billData.precioKwhPunta}
-                          onChange={(e) => handleInputChange("precioKwhPunta", parseFloat(e.target.value) || 0)}
-                          className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-900 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
-                        />
+                  <div className="bg-slate-100/40 dark:bg-slate-950/60 p-4 rounded-xl space-y-4 border border-slate-200/50 dark:border-slate-850/80 animate-fadeIn text-xs">
+                    <div>
+                      <p className="font-bold text-3xs text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">Coste Energía Variable Diario (€/kWh)</p>
+                      <div className="grid grid-cols-3 gap-3">
+                        <div>
+                          <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">C. Var. Punta</label>
+                          <input
+                            type="number"
+                            step="0.000001"
+                            value={billData.costeEnergiaPunta ?? billData.costeEnergiaVariable}
+                            onChange={(e) => handleInputChange("costeEnergiaPunta", parseFloat(e.target.value) || 0)}
+                            className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-905 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">C. Var. Llano</label>
+                          <input
+                            type="number"
+                            step="0.000001"
+                            value={billData.costeEnergiaLlano ?? billData.costeEnergiaVariable}
+                            onChange={(e) => handleInputChange("costeEnergiaLlano", parseFloat(e.target.value) || 0)}
+                            className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-905 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">C. Var. Valle</label>
+                          <input
+                            type="number"
+                            step="0.000001"
+                            value={billData.costeEnergiaValle ?? billData.costeEnergiaVariable}
+                            onChange={(e) => handleInputChange("costeEnergiaValle", parseFloat(e.target.value) || 0)}
+                            className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-905 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Llano</label>
-                        <input
-                          type="number"
-                          step="0.000001"
-                          value={billData.precioKwhLlano}
-                          onChange={(e) => handleInputChange("precioKwhLlano", parseFloat(e.target.value) || 0)}
-                          className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-900 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Valle</label>
-                        <input
-                          type="number"
-                          step="0.000001"
-                          value={billData.precioKwhValle}
-                          onChange={(e) => handleInputChange("precioKwhValle", parseFloat(e.target.value) || 0)}
-                          className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-900 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
-                        />
+                      <p className="text-3xs text-slate-500 dark:text-slate-400 mt-1.5 leading-tight">Cargos reales de la energía para cada periodo. Promedio OMIE de referencia.</p>
+                    </div>
+
+                    <div className="border-t border-slate-200/40 dark:border-slate-800/40 pt-3">
+                      <p className="font-bold text-3xs text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">Peajes de Acceso Energía (€/kWh)</p>
+                      <div className="grid grid-cols-3 gap-3">
+                        <div>
+                          <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Punta</label>
+                          <input
+                            type="number"
+                            step="0.000001"
+                            value={billData.precioKwhPunta}
+                            onChange={(e) => handleInputChange("precioKwhPunta", parseFloat(e.target.value) || 0)}
+                            className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-905 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Llano</label>
+                          <input
+                            type="number"
+                            step="0.000001"
+                            value={billData.precioKwhLlano}
+                            onChange={(e) => handleInputChange("precioKwhLlano", parseFloat(e.target.value) || 0)}
+                            className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-905 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-3xs text-slate-500 dark:text-slate-400 block mb-1">Peaje Valle</label>
+                          <input
+                            type="number"
+                            step="0.000001"
+                            value={billData.precioKwhValle}
+                            onChange={(e) => handleInputChange("precioKwhValle", parseFloat(e.target.value) || 0)}
+                            className="w-full text-2xs p-2 bg-slate-800 dark:bg-slate-905 border border-slate-700 dark:border-slate-800 rounded-lg text-white dark:text-white"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -718,16 +718,32 @@ export default function App() {
                     {/* Sub-tramos energia breakdown */}
                     <div className="pl-4 space-y-1 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
                       <div className="flex justify-between">
-                        <span>• Suma de Consumo (Punta + Llano + Valle): <span className="font-semibold text-slate-700 dark:text-slate-300">{(billData.kwhPunta + billData.kwhLlano + billData.kwhValle).toFixed(2)} kWh</span> × {billData.costeEnergiaVariable.toFixed(6)} €/kWh</span>
-                        <span className="font-mono font-medium">{results.totalEnergia.toFixed(2)} €</span>
+                        <span>• Consumo Punta: <span className="font-semibold text-slate-700 dark:text-slate-300">{billData.kwhPunta.toFixed(2)} kWh</span> × {(billData.costeEnergiaPunta ?? billData.costeEnergiaVariable).toFixed(6)} €/kWh</span>
+                        <span className="font-mono font-medium">{(billData.kwhPunta * (billData.costeEnergiaPunta ?? billData.costeEnergiaVariable)).toFixed(2)} €</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>• Consumo Llano: <span className="font-semibold text-slate-700 dark:text-slate-300">{billData.kwhLlano.toFixed(2)} kWh</span> × {(billData.costeEnergiaLlano ?? billData.costeEnergiaVariable).toFixed(6)} €/kWh</span>
+                        <span className="font-mono font-medium">{(billData.kwhLlano * (billData.costeEnergiaLlano ?? billData.costeEnergiaVariable)).toFixed(2)} €</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>• Consumo Valle: <span className="font-semibold text-slate-700 dark:text-slate-300">{billData.kwhValle.toFixed(2)} kWh</span> × {(billData.costeEnergiaValle ?? billData.costeEnergiaVariable).toFixed(6)} €/kWh</span>
+                        <span className="font-mono font-medium">{(billData.kwhValle * (billData.costeEnergiaValle ?? billData.costeEnergiaVariable)).toFixed(2)} €</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Impuesto electrico */}
-                  <div className="flex justify-between items-baseline border-b border-slate-100 dark:border-slate-800/60 pb-2">
-                    <span className="text-slate-500 dark:text-slate-400">Impuesto sobre Electricidad (IEE {billData.iee.toFixed(2)}%)</span>
-                    <span className="font-mono text-slate-950 dark:text-slate-100 font-bold">{results.totalIee.toFixed(2)} €</span>
+                  <div className="border-b border-slate-100 dark:border-slate-800/60 pb-3">
+                    <div className="flex justify-between items-baseline mb-1">
+                      <span className="text-slate-850 dark:text-slate-200 font-bold">Impuesto sobre Electricidad (IEE {billData.iee.toFixed(2)}%)</span>
+                      <span className="font-mono text-slate-950 dark:text-slate-100 font-bold">{results.totalIee.toFixed(2)} €</span>
+                    </div>
+                    <div className="pl-4 space-y-1 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                      <div className="flex justify-between">
+                        <span>• Calculado sobre (Potencia + Energía): <span className="font-semibold text-slate-700 dark:text-slate-300">{(results.totalFijo + results.totalVariable).toFixed(2)} €</span> × {billData.iee.toFixed(4)}%</span>
+                        <span className="font-mono font-medium">{results.totalIee.toFixed(2)} €</span>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Regulados */}
@@ -758,9 +774,20 @@ export default function App() {
                   )}
 
                   {/* IVA */}
-                  <div className="flex justify-between items-baseline border-b border-slate-100 dark:border-slate-800/60 pb-2">
-                    <span className="text-slate-500 dark:text-slate-400">IVA Aplicado ({billData.iva}%)</span>
-                    <span className="font-mono text-slate-950 dark:text-slate-100 font-bold">{results.totalIva.toFixed(2)} €</span>
+                  <div className="border-b border-slate-100 dark:border-slate-800/60 pb-3">
+                    <div className="flex justify-between items-baseline mb-1">
+                      <span className="text-slate-850 dark:text-slate-200 font-bold">IVA Aplicado ({billData.iva}%)</span>
+                      <span className="font-mono text-slate-950 dark:text-slate-100 font-bold">{results.totalIva.toFixed(2)} €</span>
+                    </div>
+                    <div className="pl-4 space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                      <div className="flex justify-between">
+                        <span>• Calculado sobre Base Imponible: <span className="font-semibold text-slate-700 dark:text-slate-300">{(results.totalFijo + results.totalVariable + results.totalIee + results.totalRegulados + results.totalInternet).toFixed(2)} €</span> × {billData.iva}%</span>
+                        <span className="font-mono font-medium">{results.totalIva.toFixed(2)} €</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400 dark:text-slate-500/90 leading-relaxed font-sans bg-slate-50 dark:bg-slate-900/30 p-2 rounded-lg border border-slate-100 dark:border-slate-800/40">
+                        Base = Potencia ({(results.totalFijo).toFixed(2)} €) + Consumo ({(results.totalVariable).toFixed(2)} €) + IEE ({results.totalIee.toFixed(2)} €) + Regulados ({results.totalRegulados.toFixed(2)} €) {results.totalInternet > 0 ? `+ Internet (${results.totalInternet.toFixed(2)} €)` : ''}
+                      </div>
+                    </div>
                   </div>
 
                   {/* TOTAL FACTURA */}

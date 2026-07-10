@@ -22,6 +22,9 @@ export interface BillData {
   
   // Coste energía variable (coste energía diario PVPC sin peajes o combinado)
   costeEnergiaVariable: number; // €/kWh
+  costeEnergiaPunta: number; // €/kWh
+  costeEnergiaLlano: number; // €/kWh
+  costeEnergiaValle: number; // €/kWh
 
   // Regulados y otros
   alqContador: number; // €/día

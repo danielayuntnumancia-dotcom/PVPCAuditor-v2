@@ -25,6 +25,9 @@ export const DEFAULT_PVPC_VALUES: BillData = {
 
   // Coste energía variable (coste diario mercado mayorista OMIE promedio aproximado)
   costeEnergiaVariable: 0.169183,
+  costeEnergiaPunta: 0.169183,
+  costeEnergiaLlano: 0.169183,
+  costeEnergiaValle: 0.169183,
 
   // Regulados y otros
   alqContador: 0.026630, // €/día
@@ -102,7 +105,9 @@ export function calcularFactura(data: BillData): BillResults {
   const costePeajes = (data.kwhPunta * data.precioKwhPunta) +
                       (data.kwhLlano * data.precioKwhLlano) +
                       (data.kwhValle * data.precioKwhValle);
-  const costeEnergia = kwhTotal * data.costeEnergiaVariable;
+  const costeEnergia = (data.kwhPunta * (data.costeEnergiaPunta ?? data.costeEnergiaVariable)) +
+                       (data.kwhLlano * (data.costeEnergiaLlano ?? data.costeEnergiaVariable)) +
+                       (data.kwhValle * (data.costeEnergiaValle ?? data.costeEnergiaVariable));
   const totalVariable = costePeajes + costeEnergia;
 
   // 4. Impuesto Eléctrico (IEE) se aplica sobre (Fijo + Variable)
