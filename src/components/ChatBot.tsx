@@ -34,11 +34,16 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
   const [mode, setMode] = useState<"normal" | "fast" | "thinking" | "grounded">("normal");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Auto scroll to bottom
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Auto-scroll the chat container to the bottom smoothly without shifting the entire webpage window
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
+    }
   }, [messages, loading]);
 
   const handleSend = async (textToSend?: string) => {
@@ -189,7 +194,7 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
       </div>
 
       {/* Messages Thread */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -271,7 +276,6 @@ He analizado tu simulador actual y observo que tienes una factura estimada de **
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Suggested Quick Questions */}

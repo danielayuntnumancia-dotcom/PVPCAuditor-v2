@@ -24,6 +24,7 @@ import BillChart from "./components/BillChart";
 import BillOptimizer from "./components/BillOptimizer";
 import Scanner from "./components/Scanner";
 import ChatBot from "./components/ChatBot";
+import CustomDatePicker from "./components/CustomDatePicker";
 
 export default function App() {
   const [billData, setBillData] = useState<BillData>(() => {
@@ -244,24 +245,22 @@ export default function App() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                      <Calendar size={11} /> F. Inicio
+                      <Calendar size={11} className="text-emerald-500 dark:text-emerald-400" /> F. Inicio
                     </label>
-                    <input
-                      type="date"
+                    <CustomDatePicker
                       value={billData.fechaInicio}
-                      onChange={(e) => handleInputChange("fechaInicio", e.target.value)}
-                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-emerald-500 text-white dark:text-white"
+                      onChange={(val) => handleInputChange("fechaInicio", val)}
+                      label="Fecha Inicio"
                     />
                   </div>
                   <div className="space-y-1">
                     <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                      <Calendar size={11} /> F. Fin
+                      <Calendar size={11} className="text-emerald-500 dark:text-emerald-400" /> F. Fin
                     </label>
-                    <input
-                      type="date"
+                    <CustomDatePicker
                       value={billData.fechaFin}
-                      onChange={(e) => handleInputChange("fechaFin", e.target.value)}
-                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-emerald-500 text-white dark:text-white"
+                      onChange={(val) => handleInputChange("fechaFin", val)}
+                      label="Fecha Fin"
                     />
                   </div>
                 </div>
@@ -563,40 +562,30 @@ export default function App() {
                 )}
               </div>
 
-              {/* SECTION D: Regulados y Telecom */}
+              {/* SECTION D: Regulados */}
               <div className="space-y-4">
                 <h3 className="font-bold text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800/60 pb-1.5">
-                  4. Conceptos Regulados y Telecom
+                  4. Conceptos Regulados
                 </h3>
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block mb-1">Contador (€/día)</label>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 flex items-end min-h-[32px] pb-1">Contador (€/día)</label>
                     <input
                       type="number"
                       step="0.00001"
                       value={billData.alqContador}
                       onChange={(e) => handleInputChange("alqContador", parseFloat(e.target.value) || 0)}
-                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl text-white dark:text-white"
+                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-emerald-500 text-white dark:text-white"
                     />
                   </div>
-                  <div>
-                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block mb-1">Bono Social (€)</label>
+                  <div className="space-y-1">
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 flex items-end min-h-[32px] pb-1">Bono Social (€)</label>
                     <input
                       type="number"
                       step="0.01"
                       value={billData.bonoSocial}
                       onChange={(e) => handleInputChange("bonoSocial", parseFloat(e.target.value) || 0)}
-                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl text-white dark:text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block mb-1">Cuota Internet (€)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      value={billData.cuotaInternet}
-                      onChange={(e) => handleInputChange("cuotaInternet", parseFloat(e.target.value) || 0)}
-                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl text-white dark:text-white"
+                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-emerald-500 text-white dark:text-white"
                     />
                   </div>
                 </div>
@@ -609,17 +598,17 @@ export default function App() {
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block">Impuesto Eléctrico (IEE %)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 flex items-end min-h-[32px] pb-1">Imp. Eléctrico (IEE %)</label>
                     <input
                       type="number"
                       step="0.000001"
                       value={billData.iee}
                       onChange={(e) => handleInputChange("iee", parseFloat(e.target.value) || 0)}
-                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl text-white dark:text-white"
+                      className="w-full text-xs p-2.5 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-xl focus:outline-hidden focus:ring-1 focus:ring-emerald-500 text-white dark:text-white"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 block">IVA (%)</label>
+                    <label className="text-2xs font-bold text-slate-500 dark:text-slate-400 flex items-end min-h-[32px] pb-1">IVA (%)</label>
                     <select
                       value={billData.iva}
                       onChange={(e) => handleInputChange("iva", parseInt(e.target.value) || 21)}

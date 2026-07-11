@@ -18,6 +18,12 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 0 10px rgba(13, 148, 136, 0.2);
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(100%) !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+}
+
 /* Custom fade-in animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }

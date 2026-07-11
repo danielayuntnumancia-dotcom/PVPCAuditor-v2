@@ -32,7 +32,7 @@ export const DEFAULT_PVPC_VALUES: BillData = {
   // Regulados y otros
   alqContador: 0.026630, // €/día
   bonoSocial: 0.60, // € cargo fijo periodo
-  cuotaInternet: 30.00, // € cuota mensual telecom
+  cuotaInternet: 0.00, // € cuota mensual telecom
 
   // Impuestos
   iee: 5.112696, // Impuesto Eléctrico %
